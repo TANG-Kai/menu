@@ -19,7 +19,7 @@ public:
 private slots:
     void on_pb_gotonext_clicked();
     void dish_added(QString name);
-
+    void update_filter(QAbstractButton*);
 private:
     Ui::MainWindow *ui;
     check checkwindow;

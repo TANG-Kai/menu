@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     check.cpp \
     order.cpp \
     welcome.cpp \
-    dishitem.cpp
+    dishitem.cpp \
+    linkedbuttons.cpp
 
 HEADERS  += mainwindow.h \
     orderitem.h \
@@ -31,7 +32,9 @@ HEADERS  += mainwindow.h \
     check.h \
     order.h \
     welcome.h \
-    dishitem.h
+    dishitem.h \
+    linkedbuttons.h \
+    initiate.h
 
 FORMS    += mainwindow.ui \
     orderitem.ui \
