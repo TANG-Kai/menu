@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     dish.cpp \
     check.cpp \
     order.cpp \
-    welcome.cpp
+    welcome.cpp \
+    dishitem.cpp
 
 HEADERS  += mainwindow.h \
     orderitem.h \
@@ -29,12 +30,14 @@ HEADERS  += mainwindow.h \
     ingrenum.h \
     check.h \
     order.h \
-    welcome.h
+    welcome.h \
+    dishitem.h
 
 FORMS    += mainwindow.ui \
     orderitem.ui \
     check.ui \
-    welcome.ui
+    welcome.ui \
+    dishitem.ui
 
 RESOURCES += \
     images.qrc

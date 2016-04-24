@@ -16,8 +16,8 @@ void update_display_list();
 void update_page_pb(Ui::MainWindow *ui);
 
 Dish *dishlist = new Dish[15];
-int dishes_on_display[4];
 QVector<Dish> all_dishes;
+int dishes_on_display[4];
 QList<Ingredients> all_ingre;
 QList<Ingrenum> all_ingre_n;
 QList<int> candidat_list;
@@ -648,7 +648,7 @@ void update_for_checkbox(Ui::MainWindow *ui){
 */
     if(checked_keys.contains("Vegetable"))
     {
-        for(int i=0;i<10;i++)
+        for(int i=0;i<10;i++)          
             if(i!=7) candidat_list.removeOne(i);
     }
 
@@ -764,7 +764,7 @@ void MainWindow::on_pb_gotonext_clicked()
         //order n_order;
         //n_order.setName(OrderItemList.at(i)->name);
         //n_order.setQuantity(OrderItemList.at(i)->quantity);
-        for(int j=0; j<all_dishes.length();j++){
+        for(int j=0; j<all_dishes.size();j++){
             if(OrderItemList.at(i)->name == all_dishes.at(j).getname())
             {
                 orderlist.append(all_dishes.at(j));

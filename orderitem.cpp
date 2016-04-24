@@ -1,6 +1,7 @@
-#include "orderitem.h"
+﻿#include "orderitem.h"
 #include "ui_orderitem.h"
 
+#include<QDebug>
 OrderItem::OrderItem(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OrderItem)
@@ -16,7 +17,9 @@ OrderItem::~OrderItem()
 void OrderItem::setText(QString name, int quantity, double price, double amount){
     ui->lb_name->setText( name);
     ui->lb_quantity->setText("x" + QString::number(quantity));
-    ui->lb_amount->setText("€" + QString::number(amount));
+    ui->lb_amount->setText("$" + QString::number(amount));
+    qDebug()<<QString::number(quantity * price);
+    qDebug()<<QString::number(amount);
     this->name = name;
     this->price = price;
     this->quantity = quantity;
@@ -32,5 +35,6 @@ int OrderItem::getquantity(){
 
 void OrderItem::update(){
     ui->lb_quantity->setText("x" + QString::number(quantity));
-    ui->lb_amount->setText("€" + QString::number(quantity * price));
+    ui->lb_amount->setText("$" + QString::number(quantity * price));
+    //qDebug()<<QString::number(quantity * price);
 }
