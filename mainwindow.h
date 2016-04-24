@@ -17,33 +17,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pb_add_clicked();
-
-    void on_pb_right_clicked();
-
-    void on_pb_left_clicked();
-
-    void on_pb_add_3_clicked();
-
-    void on_pb_add_4_clicked();
-
-    void on_pb_add_8_clicked();
-
-    void on_checkBox_2_clicked();
-
-    void on_checkBox_3_clicked();
-
-    void on_checkBox_4_clicked();
-
-    void on_checkBox_5_clicked();
-
-    void on_checkBox_7_clicked();
-
-    void on_checkBox_6_clicked();
-
-    void on_checkBox_clicked();
-
     void on_pb_gotonext_clicked();
+    void dish_added(QString name);
 
 private:
     Ui::MainWindow *ui;

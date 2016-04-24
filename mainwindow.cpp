@@ -3,13 +3,15 @@
 #include "orderitem.h"
 #include "ingredients.h"
 #include "dish.h"
+#include "dishitem.h"
 #include<iostream>
 #include <QTextCodec>
 #include<QDebug>
 QWidget *wgsc;
 
 
-QVBoxLayout *sclayout = new QVBoxLayout;
+QVBoxLayout *layout_dishlist = new QVBoxLayout;
+QVBoxLayout *layout_orderlist = new QVBoxLayout;
 void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* dishlist);
 void update_display_dishes(Ui::MainWindow *ui);
 void update_display_list();
@@ -17,7 +19,7 @@ void update_page_pb(Ui::MainWindow *ui);
 
 Dish *dishlist = new Dish[15];
 QVector<Dish> all_dishes;
-int dishes_on_display[4];
+QVector<DishItem*> ditems;
 QList<Ingredients> all_ingre;
 QList<Ingrenum> all_ingre_n;
 QList<int> candidat_list;
@@ -39,6 +41,12 @@ public:
 QList<OrderData*> OrderList;
 QList<OrderItem*> OrderItemList;
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* dishlist);
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -49,19 +57,28 @@ MainWindow::MainWindow(QWidget *parent) :
     setFixedSize(1280,800);
     ui->setupUi(this);
     wgsc = new QWidget;
-    //sclayout->addWidget(new OrderItem);
-    //sclayout->addWidget(new OrderItem);
-    //sclayout->addWidget(new OrderItem);
-    sclayout->setMargin(0);
-    ui->scrollArea->widget()->setLayout(sclayout);
-    ui->scrollArea->setWidgetResizable(true);
-    ui->lb_name->setText("hot dog");
+    //layout_dishlist->addWidget(new OrderItem);
+    //layout_dishlist->addWidget(new OrderItem);
+    //layout_dishlist->addWidget(new OrderItem);
+    layout_dishlist->setMargin(0);
+    ui->scrollArea_menu->widget()->setLayout(layout_dishlist);
+    ui->scrollArea_menu->setWidgetResizable(true);
+
+    ui->scrollArea_orders->widget()->setLayout(layout_orderlist);
+    ui->scrollArea_orders->setWidgetResizable(true);
+    //ui->lb_name->setText("hot dog");
     //Dish *dishlist = new Dish[15];
     initiate(all_ingre, all_ingre_n, dishlist);
 
     for(int i=0;i<10;i++)
     {
         all_dishes.append(dishlist[i]);
+        DishItem* new_ditem = new DishItem();
+        new_ditem->setDish(&dishlist[i]);
+        layout_dishlist->addWidget(new_ditem);
+        ditems.append(new_ditem);
+        connect(new_ditem, SIGNAL(buttonClicked(QString)),this, SLOT(dish_added(QString)));
+
         candidat_list.append(i);
         QList<QString>* keys = dishlist[i].getkeys_container();
         QString str;
@@ -75,97 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-    update_page_pb(ui);
-    update_display_list();
-    update_display_dishes(ui);
-
 }
-void update_page_pb(Ui::MainWindow *ui){
-        ui->pb_left->setDisabled(cur_page == 0);
-        ui->pb_right->setDisabled((cur_page+1)*4 > candidat_list.length());
-}
-
-void update_display_list(){
-    for(int i=0;i<4;i++){
-        int current_tag  = i+cur_page*4;
-        if(current_tag >= candidat_list.length())
-            dishes_on_display[i] = -1;
-        else
-            dishes_on_display[i] = candidat_list.at(current_tag);
-    }
-}
-
-void update_display_dishes(Ui::MainWindow *ui){
-    if(dishes_on_display[0]!=-1){
-        ui->pb_add->show();
-        Dish* cur_dish = &dishlist[dishes_on_display[0]];
-        ui->lb_name->setText(cur_dish->getname());
-        //std::cout<<cur_dish->getname().toStdString();
-        ui->lb_price->setText(QString::number(cur_dish->getprice()));
-        ui->lb_img->setPixmap(QPixmap(cur_dish->getpath()).scaled(204,157));
-        ui->lb_key->setText(cur_dish->getkeys());
-    }
-    else
-    {
-        ui->lb_name->clear();
-        ui->lb_price->clear();
-        ui->lb_img->clear();
-        ui->lb_key->clear();
-        ui->pb_add->hide();
-    }
-    if(dishes_on_display[1]!=-1){
-        ui->pb_add_3->show();
-        Dish* cur_dish = &dishlist[dishes_on_display[1]];;
-        ui->lb_name_3->setText(cur_dish->getname());
-        //std::cout<<cur_dish->getname().toStdString();
-        ui->lb_price_3->setText(QString::number(cur_dish->getprice()));
-        ui->lb_img_3->setPixmap(QPixmap(cur_dish->getpath()).scaled(204,157));
-        ui->lb_key_3->setText(cur_dish->getkeys());
-    }
-    else
-    {
-        ui->lb_name_3->clear();
-        ui->lb_price_3->clear();
-        ui->lb_img_3->clear();
-        ui->lb_key_3->clear();
-        ui->pb_add_3->hide();
-    }
-    if(dishes_on_display[2]!=-1){
-        ui->pb_add_4->show();
-        Dish* cur_dish = &dishlist[dishes_on_display[2]];;
-        ui->lb_name_4->setText(cur_dish->getname());
-        //std::cout<<cur_dish->getname().toStdString();
-        ui->lb_price_4->setText(QString::number(cur_dish->getprice()));
-        ui->lb_img_4->setPixmap(QPixmap(cur_dish->getpath()).scaled(204,157));
-        ui->lb_key_4->setText(cur_dish->getkeys());
-    }
-    else
-    {
-        ui->lb_name_4->clear();
-        ui->lb_price_4->clear();
-        ui->lb_img_4->clear();
-        ui->lb_key_4->clear();
-        ui->pb_add_4->hide();
-    }
-    if(dishes_on_display[3]!=-1){
-        ui->pb_add_8->show();
-        Dish* cur_dish = &dishlist[dishes_on_display[3]];;
-        ui->lb_name_8->setText(cur_dish->getname());
-        //std::cout<<cur_dish->getname().toStdString();
-        ui->lb_price_8->setText(QString::number(cur_dish->getprice()));
-        ui->lb_img_8->setPixmap(QPixmap(cur_dish->getpath()).scaled(204,157));
-        ui->lb_key_8->setText(cur_dish->getkeys());
-    }
-    else
-    {
-        ui->lb_name_8->clear();
-        ui->lb_price_8->clear();
-        ui->lb_key_8->clear();
-        ui->lb_img_8->clear();
-        ui->pb_add_8->hide();
-    }
-}
-
 void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* dishlist){
     //initial all the ingredients
     Ingredients in_1;
@@ -396,374 +323,12 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[9].dish_ingre->append(nu_16);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
-void MainWindow::on_pb_right_clicked()
-{
-    cur_page++;
-    update_page_pb(ui);
-    update_display_list();
-    update_display_dishes(ui);
-}
-
-void MainWindow::on_pb_left_clicked()
-{
-    cur_page--;
-    update_page_pb(ui);
-    update_display_list();
-    update_display_dishes(ui);
-}
-void MainWindow::on_pb_add_clicked()
-{
-
-    Dish* cur_dish = &dishlist[dishes_on_display[0]];
-    qDebug()<<dishes_on_display[1];
-
-    qDebug()<<dishlist[dishes_on_display[1]].name;
-    OrderData od;
-    od.name = cur_dish->name;
-    od.price = cur_dish->price;
-    od.quantity = 1;
-    od.amount = od.quantity * od.price;
-
-    qDebug()<<2;
-    bool is_contained = false;
-/*
-    QListIterator<OrderItem*> i(OrderItemList); std::cout<<OrderList.length();
-    while (i.hasNext())
-    {
-        OrderItem* odr = i.next();
-        if(cur_dish->getname() == odr->getname())
-        {
-            is_contained = true;
-            odr->quantity++;
-            odr->update();
-            break;
-        }
-
-
-    }*/
-    OrderItem* odd;
-    foreach(odd, OrderItemList){
-        if(odd->name == cur_dish->name){
-            is_contained = true;
-            qDebug()<<6;
-            odd->quantity++;
-            odd->update();
-            break;
-        }
-    }
-
-    if(is_contained == false)
-    {
-        std::cout<<"arrived in the boucle";
-        OrderItem* oi = new OrderItem;
-        oi->setText(od.name, od.quantity, od.price, od.amount);
-        sclayout->addWidget(oi);
-        OrderItemList.append(oi);
-    }
-
-}
-
-
-void MainWindow::on_pb_add_3_clicked()
-{
-    Dish* cur_dish = &dishlist[dishes_on_display[1]];
-    qDebug()<<dishes_on_display[1];
-
-    qDebug()<<dishlist[dishes_on_display[1]].name;
-    OrderData od;
-    od.name = cur_dish->name;
-    od.price = cur_dish->price;
-    od.quantity = 1;
-    od.amount = od.quantity * od.price;
-
-    qDebug()<<2;
-    bool is_contained = false;
-/*
-    QListIterator<OrderItem*> i(OrderItemList); std::cout<<OrderList.length();
-    while (i.hasNext())
-    {
-        OrderItem* odr = i.next();
-        if(cur_dish->getname() == odr->getname())
-        {
-            is_contained = true;
-            odr->quantity++;
-            odr->update();
-            break;
-        }
-
-
-    }*/
-    OrderItem* odd;
-    foreach(odd, OrderItemList){
-        if(odd->name == cur_dish->name){
-            is_contained = true;
-            qDebug()<<6;
-            odd->quantity++;
-            odd->update();
-            break;
-        }
-    }
-
-    if(is_contained == false)
-    {
-        std::cout<<"arrived in the boucle";
-        OrderItem* oi = new OrderItem;
-        oi->setText(od.name, od.quantity, od.price, od.amount);
-        sclayout->addWidget(oi);
-        OrderItemList.append(oi);
-    }
-}
-
-void MainWindow::on_pb_add_4_clicked()
-{
-    Dish* cur_dish = &dishlist[dishes_on_display[2]];
-    qDebug()<<dishes_on_display[1];
-
-    qDebug()<<dishlist[dishes_on_display[1]].name;
-    OrderData od;
-    od.name = cur_dish->name;
-    od.price = cur_dish->price;
-    od.quantity = 1;
-    od.amount = od.quantity * od.price;
-
-    qDebug()<<2;
-    bool is_contained = false;
-/*
-    QListIterator<OrderItem*> i(OrderItemList); std::cout<<OrderList.length();
-    while (i.hasNext())
-    {
-        OrderItem* odr = i.next();
-        if(cur_dish->getname() == odr->getname())
-        {
-            is_contained = true;
-            odr->quantity++;
-            odr->update();
-            break;
-        }
-
-
-    }*/
-    OrderItem* odd;
-    foreach(odd, OrderItemList){
-        if(odd->name == cur_dish->name){
-            is_contained = true;
-            qDebug()<<6;
-            odd->quantity++;
-            odd->update();
-            break;
-        }
-    }
-
-    if(is_contained == false)
-    {
-        std::cout<<"arrived in the boucle";
-        OrderItem* oi = new OrderItem;
-        oi->setText(od.name, od.quantity, od.price, od.amount);
-        sclayout->addWidget(oi);
-        OrderItemList.append(oi);
-    }
-}
-
-void MainWindow::on_pb_add_8_clicked()
-{
-
-    Dish* cur_dish = &dishlist[dishes_on_display[3]];
-    qDebug()<<dishes_on_display[1];
-
-    qDebug()<<dishlist[dishes_on_display[1]].name;
-    OrderData od;
-    od.name = cur_dish->name;
-    od.price = cur_dish->price;
-    od.quantity = 1;
-    od.amount = od.quantity * od.price;
-
-    qDebug()<<2;
-    bool is_contained = false;
-/*
-    QListIterator<OrderItem*> i(OrderItemList); std::cout<<OrderList.length();
-    while (i.hasNext())
-    {
-        OrderItem* odr = i.next();
-        if(cur_dish->getname() == odr->getname())
-        {
-            is_contained = true;
-            odr->quantity++;
-            odr->update();
-            break;
-        }
-
-
-    }*/
-    OrderItem* odd;
-    foreach(odd, OrderItemList){
-        if(odd->name == cur_dish->name){
-            is_contained = true;
-            qDebug()<<6;
-            odd->quantity++;
-            odd->update();
-            break;
-        }
-    }
-
-    if(is_contained == false)
-    {
-        std::cout<<"arrived in the boucle";
-        OrderItem* oi = new OrderItem;
-        oi->setText(od.name, od.quantity, od.price, od.amount);
-        sclayout->addWidget(oi);
-        OrderItemList.append(oi);
-    }
-}
-void update_for_checkbox(Ui::MainWindow *ui){
-    candidat_list.clear();
-    for(int i=0;i<10;i++)
-        candidat_list.append(i);
-    Dish d;
-    int i=0;
-    /*
-    QList<int> alternative_list;
-
-    qDebug()<<checked_keys;
-    foreach( d,all_dishes){
-        QString key;
-        foreach(key, checked_keys){
-            if(d.getkeys_container()->contains(key))
-                qDebug()<<key;
-                alternative_list.append(i);
-        }
-        i++;
-    }
-    qDebug()<<alternative_list;
-    Dish d_d;
-    i=0;
-    foreach(d_d, all_dishes){
-        if(!alternative_list.contains(i)) candidat_list.append(i);
-        i++;
-    }
-*/
-    if(checked_keys.contains("Vegetable"))
-    {
-        for(int i=0;i<10;i++)          
-            if(i!=7) candidat_list.removeOne(i);
-    }
-
-    if(checked_keys.contains("Staple food"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Salty"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0&&i!=2) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Sweet"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0&&i!=3) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Sweet"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0&&i!=4) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Very Spicy"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0&&i!=6) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Spicy"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=0&&i!=4&&i!=5&&i!=6) candidat_list.removeOne(i);
-    }
-    if(checked_keys.contains("Dessert"))
-    {
-        for(int i=0;i<10;i++)
-            if(i!=9&&i!=3) candidat_list.removeOne(i);
-    }
-    update_page_pb(ui);
-    update_display_list();
-    update_display_dishes(ui);
-}
-
-void MainWindow::on_checkBox_2_clicked()
-{
-    if(ui->checkBox_2->isChecked()){
-        checked_keys.append(ui->checkBox_2->text());
-    }
-    else checked_keys.removeOne(ui->checkBox_2->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_3_clicked()
-{
-    if(ui->checkBox_3->isChecked()){
-        checked_keys.append(ui->checkBox_3->text());
-    }else checked_keys.removeOne(ui->checkBox_3->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_4_clicked()
-{
-    if(ui->checkBox_4->isChecked()){
-        checked_keys.append(ui->checkBox_4->text());
-        update_for_checkbox(ui);
-    }else checked_keys.removeOne(ui->checkBox_4->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_5_clicked()
-{
-    if(ui->checkBox_5->isChecked()){
-        checked_keys.append(ui->checkBox_5->text());
-        update_for_checkbox(ui);
-    }else checked_keys.removeOne(ui->checkBox_5->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_7_clicked()
-{
-    if(ui->checkBox_7->isChecked()){
-        checked_keys.append(ui->checkBox_7->text());
-        update_for_checkbox(ui);
-    }
-    else checked_keys.removeOne(ui->checkBox_7->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_6_clicked()
-{
-    if(ui->checkBox_6->isChecked()){
-        checked_keys.append(ui->checkBox_6->text());
-        update_for_checkbox(ui);
-    }else checked_keys.removeOne(ui->checkBox_6->text());
-    update_for_checkbox(ui);
-}
-
-void MainWindow::on_checkBox_clicked()
-{
-    if(ui->checkBox->isChecked()){
-        checked_keys.append(ui->checkBox->text());
-        update_for_checkbox(ui);
-    }else checked_keys.removeOne(ui->checkBox->text());
-    update_for_checkbox(ui);
-}
-
 void MainWindow::on_pb_gotonext_clicked()
 {
     this->close();
     QList<Dish> orderlist;
     for(int i=0; i< OrderItemList.length();i++)
     {
-        //order n_order;
-        //n_order.setName(OrderItemList.at(i)->name);
-        //n_order.setQuantity(OrderItemList.at(i)->quantity);
         for(int j=0; j<all_dishes.size();j++){
             if(OrderItemList.at(i)->name == all_dishes.at(j).getname())
             {
@@ -776,4 +341,48 @@ void MainWindow::on_pb_gotonext_clicked()
     checkwindow.show();
     checkwindow.exec();
     this->show();
+}
+Dish * search_dish(QString name){
+    for(int i=0;i<all_dishes.size();i++){
+        if(dishlist[i].name== name)
+            return &dishlist[i];
+    }
+    qDebug()<<"dish not found in search_dish:"<<name;
+    return NULL;
+}
+
+
+void MainWindow::dish_added(QString name){
+
+    Dish* cur_dish = search_dish(name);
+
+    OrderData od;
+    od.name = cur_dish->name;
+    od.price = cur_dish->price;
+    od.quantity = 1;
+    od.amount = od.quantity * od.price;
+
+    qDebug()<<2;
+    bool is_contained = false;
+
+    OrderItem* odd;
+    foreach(odd, OrderItemList){
+        if(odd->name == cur_dish->name){
+            is_contained = true;
+            qDebug()<<6;
+            odd->quantity++;
+            odd->update();
+            break;
+        }
+    }
+
+    if(is_contained == false)
+    {
+        std::cout<<"arrived in the boucle";
+        OrderItem* oi = new OrderItem;
+        oi->setText(od.name, od.quantity, od.price, od.amount);
+        layout_orderlist->addWidget(oi);
+        OrderItemList.append(oi);
+    }
+
 }

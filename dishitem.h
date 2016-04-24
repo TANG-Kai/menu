@@ -11,14 +11,14 @@ class DishItem;
 class DishItem : public QWidget
 {
     Q_OBJECT
+private:
+    Ui::DishItem *ui;
 
 public:
     explicit DishItem(QWidget *parent = 0);
     ~DishItem();
     Dish* dish;
-    void setDish(Dish* dish){
-        this->dish = dish;
-    }
+    void setDish(Dish* dish);
 signals:
     void buttonClicked(QString name);
 private slots:
@@ -28,8 +28,6 @@ private slots:
     }
 
 
-private:
-    Ui::DishItem *ui;
 };
 
 #endif // DISHITEM_H
