@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/cake.jpg</file>
+        <file>images/chicken.jpg</file>
+        <file>images/fish.jpg</file>
+        <file>images/porc.jpg</file>
+        <file>images/vermicelles.jpg</file>
+        <file>images/ingredients/beef.jpeg</file>
+        <file>images/ingredients/egg.jpeg</file>
+        <file>images/ingredients/fish.jpeg</file>
+        <file>images/ingredients/flour.jpeg</file>
+        <file>images/ingredients/porc.jpeg</file>
+        <file>images/ingredients/sugar.jpg</file>
+        <file>images/ingredients/tomato.jpeg</file>
+        <file>images/ingredients/carrot.jpeg</file>
+        <file>images/ingredients/cravette.jpeg</file>
+        <file>images/ingredients/garlic.jpeg</file>
+        <file>images/ingredients/ginger.jpeg</file>
+        <file>images/ingredients/nut.jpeg</file>
+        <file>images/ingredients/onions.jpeg</file>
+        <file>images/ingredients/pineapple.jpeg</file>
+        <file>images/ingredients/soy.jpeg</file>
+        <file>images/ingredients/rice.jpeg</file>
+        <file>images/ingredients/mushroom.jpeg</file>
+        <file>images/ingredients/green pepper.jpeg</file>
+        <file>images/lettuce.jpeg</file>
+        <file>images/glutinous rice.jpeg</file>
+        <file>images/jumping buddha.jpeg</file>
+        <file>images/hot noodle.jpeg</file>
+        <file>images/spicy beef.jpeg</file>
+    </qresource>
+</RCC>

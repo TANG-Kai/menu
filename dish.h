@@ -3,17 +3,25 @@
 #include"ingrenum.h"
 class Dish{
 public:
-    QString *name;
-    QString *path;
-    QVector<QString> *keys;
+    Dish();
+    Dish(QString ,QString ,double );
+    void addkeyword(QString );
+    void addingredient(QString );
+    void addsaveur(QString );
+    QString getname() const;
+    QString getpath() const;
+    QString getkeys() const;
+    double getprice() const;
+    QVector <Ingrenum> *dish_ingre;
+    QString name;
+    QString path;
     double price;
-    QVector<Ingrenum> *ing;
-    Dish(QString name, double price){
-        this->name = new QString(name);
-        this->price = price;
-        keys = new QVector<QString>();
-        ing = new QVector<Ingrenum>();
-    }
+    bool containsKey(QString);
+    QList<QString>* getkeys_container();
+private:
+    QList<QString>* keyword;
+    QList<QString>* ingredient;
+    QList<QString>* saveur;
 };
 
 #endif // DISH_H

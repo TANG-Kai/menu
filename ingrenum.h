@@ -1,10 +1,14 @@
 #ifndef INGRENUM
 #define INGRENUM
 
+#include<QString>
 class Ingrenum
 {
 public:
-    QString* Name;
+    Ingrenum();
+    void set_ingrenum(QString,double);
+private:
+    QString name;
     double number;
 };
 

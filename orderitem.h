@@ -14,7 +14,13 @@ class OrderItem : public QWidget
 public:
     explicit OrderItem(QWidget *parent = 0);
     ~OrderItem();
-
+    void setText(QString name, int quantity, double price, double amount);
+    QString getname();
+    int getquantity();
+    QString name;
+    int quantity;
+    double price;
+    void update();
 private:
     Ui::OrderItem *ui;
 };

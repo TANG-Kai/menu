@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>welcome</class>
+ <widget class="QDialog" name="welcome">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>728</width>
+    <height>547</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/backgroud/starsky.jpg);</string>
+  </property>
+  <widget class="QPushButton" name="english">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>330</y>
+     <width>161</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/backgroud/waterdrop.png);
+font: 14pt &quot;STKaiti&quot;;</string>
+   </property>
+   <property name="text">
+    <string>welcome</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="french">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>330</y>
+     <width>161</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/backgroud/waterdrop.png);
+font: 14pt &quot;STKaiti&quot;;</string>
+   </property>
+   <property name="text">
+    <string>bonjour</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="chinese">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>160</y>
+     <width>201</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+border-image: url(:/backgroud/waterdrop.png);
+font: 14pt &quot;STKaiti&quot;;</string>
+   </property>
+   <property name="text">
+    <string>您好，请点菜</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
