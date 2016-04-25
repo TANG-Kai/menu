@@ -128,12 +128,13 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[0] = Dish(dishname0,":/images/hot noodle.jpeg",9.5);
     dishlist[0].addkeyword("New");
     dishlist[0].addkeyword("Salty");
-    dishlist[0].addkeyword("Spicy");
     dishlist[0].addkeyword("Staple food");
+    dishlist[0].addkeyword("Szechuan");
     dishlist[0].dish_ingre->append(nu_1);
     dishlist[0].dish_ingre->append(nu_3);
     dishlist[0].dish_ingre->append(nu_15);
     dishlist[0].dish_ingre->append(nu_16);
+    dishlist[0].spiciness = 7;
 
     QString dishname1 = "Ribs sweet and sour";
     dishlist[1] = Dish(dishname1,":/images/porc.jpg",12);
@@ -141,12 +142,13 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[1].addkeyword("Sweet");
     dishlist[1].addkeyword("Pork");
     dishlist[1].addkeyword("Dish");
+    dishlist[1].addkeyword("Canton");
     dishlist[1].dish_ingre->append(nu_1);
     dishlist[1].dish_ingre->append(nu_2);
     dishlist[1].dish_ingre->append(nu_3);
     dishlist[1].dish_ingre->append(nu_12);
     dishlist[1].dish_ingre->append(nu_14);
-
+    dishlist[1].spiciness = 0;
 
     QString dishname2 = "Chicken with cashew nuts";
     dishlist[2] = Dish(dishname2,":/images/chicken.jpg",10.5);
@@ -155,12 +157,13 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[2].addkeyword("Chicken");
     dishlist[2].addkeyword("Dish");
     dishlist[2].addkeyword("Vegetarian");
+    dishlist[2].addkeyword("Huaiyang");
     dishlist[2].dish_ingre->append(nu_7);
     dishlist[2].dish_ingre->append(nu_6);
     dishlist[2].dish_ingre->append(nu_8);
     dishlist[2].dish_ingre->append(nu_9);
     dishlist[2].dish_ingre->append(nu_11);
-
+    dishlist[2].spiciness = 0;
 
 
 
@@ -170,60 +173,67 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[3].addkeyword("Sweet");
     dishlist[3].addkeyword("Dessert");
     dishlist[3].addkeyword("Vegetarian");
+    dishlist[3].addkeyword("Shandong");
     dishlist[3].dish_ingre->append(nu_4);
     dishlist[3].dish_ingre->append(nu_2);
     dishlist[3].dish_ingre->append(nu_3);
     dishlist[3].dish_ingre->append(nu_5);
-    dishlist[2].dish_ingre->append(nu_11);
+    dishlist[3].dish_ingre->append(nu_11);
+    dishlist[3].spiciness = 0;
 
 
 
     QString dishname4 = "Steamed fish";
     dishlist[4] = Dish(dishname4,":/images/fish.jpg",13.5);
     dishlist[4].addkeyword("Top 10");
-    dishlist[4].addkeyword("Spicy");
     dishlist[4].addkeyword("Soup");
     dishlist[4].addkeyword("Fish");
+    dishlist[4].addkeyword("Huaiyang");
     dishlist[4].dish_ingre->append(nu_4);
     dishlist[4].dish_ingre->append(nu_12);
     dishlist[4].dish_ingre->append(nu_14);
     dishlist[4].dish_ingre->append(nu_9);
+    dishlist[4].spiciness = 5;
 
 
     QString dishname5 = "Noodles with vegetables";
     dishlist[5] = Dish(dishname5,":/images/vermicelles.jpg",9.5);
     dishlist[5].addkeyword("Kids favorite");
-    dishlist[5].addkeyword("Spicy");
     dishlist[5].addkeyword("Staple food");
     dishlist[5].addkeyword("Dish");
     dishlist[5].addkeyword("Vegetarian");
+    dishlist[5].addkeyword("Szechuan");
     dishlist[5].dish_ingre->append(nu_1);
     dishlist[5].dish_ingre->append(nu_2);
     dishlist[5].dish_ingre->append(nu_3);
     dishlist[5].dish_ingre->append(nu_11);
+    dishlist[5].spiciness = 4;
 
     QString dishname6 = "Spicy beef";
     dishlist[6] = Dish(dishname6,":/images/spicy beef.jpeg",9.5);
     dishlist[6].addkeyword("Top 10");
-    dishlist[6].addkeyword("Spicy");
     dishlist[6].addkeyword("Beef");
     dishlist[6].addkeyword("Dish");
+    dishlist[5].addkeyword("Szechuan");
     dishlist[6].dish_ingre->append(nu_5);
     dishlist[6].dish_ingre->append(nu_14);
     dishlist[6].dish_ingre->append(nu_3);
     dishlist[6].dish_ingre->append(nu_11);
+    dishlist[6].spiciness = 9;
 
     QString dishname7 = "Lettuce";
     dishlist[7] = Dish(dishname7,":/images/lettuce.jpeg",9.5);
     dishlist[7].addkeyword("New");
     dishlist[7].addkeyword("Salty");
-    dishlist[7].addkeyword("Vegetable");
+    dishlist[7].addkeyword("Vegetarian");
     dishlist[7].addkeyword("Dish");
     dishlist[7].addkeyword("Vegetarian");
+    dishlist[7].addkeyword("Canton");
     dishlist[7].dish_ingre->append(nu_5);
     dishlist[7].dish_ingre->append(nu_2);
     dishlist[7].dish_ingre->append(nu_3);
     dishlist[7].dish_ingre->append(nu_11);
+    dishlist[7].spiciness = 1;
 
     QString dishname8 = "Jumping buddha";
     dishlist[8] = Dish(dishname8,":/images/jumping buddha.jpeg",9.5);
@@ -231,11 +241,13 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[8].addkeyword("Salty");
     dishlist[8].addkeyword("Soup");
     dishlist[8].addkeyword("Vegetarian");
+    dishlist[8].addkeyword("Shandong");
     dishlist[8].dish_ingre->append(nu_11);
     dishlist[8].dish_ingre->append(nu_12);
     dishlist[8].dish_ingre->append(nu_17);
     dishlist[8].dish_ingre->append(nu_8);
     dishlist[8].dish_ingre->append(nu_9);
+    dishlist[8].spiciness = 1;
 
     QString dishname9 = "Glutinous";
     dishlist[9] = Dish(dishname9,":/images/glutinous rice.jpeg",9.5);
@@ -243,10 +255,12 @@ void initiate(QList<Ingredients> all_ingre,QList<Ingrenum> all_ingre_n, Dish* di
     dishlist[9].addkeyword("Sweet");
     dishlist[9].addkeyword("Dessert");
     dishlist[9].addkeyword("Vegetarian");
+    dishlist[9].addkeyword("Huaiyang");
     dishlist[9].dish_ingre->append(nu_1);
     dishlist[9].dish_ingre->append(nu_3);
     dishlist[9].dish_ingre->append(nu_15);
     dishlist[9].dish_ingre->append(nu_16);
+    dishlist[9].spiciness = 0;
 }
 #endif // INITIATE
 

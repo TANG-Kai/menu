@@ -50,9 +50,19 @@ QString Dish::getpath() const{
 QString Dish::getkeys() const{
     if(keyword == NULL) return NULL;
     QString output;
-    for(int i=0;i<4;i++){
-        if(i<keyword->size())
-            output += keyword->at(i) + "\t";
+    if(spiciness>=1 && spiciness<=4)
+        output += QString("Mildly hot") + ", ";
+    else if(spiciness >=5)
+        output+= QString("Hot") + ", ";
+
+    int max;
+    if(keyword->size()>3) max = 3;
+    else max = keyword->size();
+    for(int i=0;i<max;i++){
+            if(i<max-1)
+                output += keyword->at(i) + ",";
+            else
+                output += keyword->at(i);
     }
     return output;
 }

@@ -7,6 +7,7 @@ DishItem::DishItem(QWidget *parent) :
     ui(new Ui::DishItem)
 {
     ui->setupUi(this);
+    ui->lb_constraints->hide();
 }
 
 DishItem::~DishItem()
@@ -24,4 +25,9 @@ void DishItem::setDish(Dish* dish){
     qDebug()<< dish->path;
     image = image.scaled( 210,192,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     ui->lb_img->setPixmap(image);
+}
+
+void DishItem::setConstraints(QString ctrs){
+    ui->lb_constraints->setText("Set to: "+ctrs);
+    ui->lb_constraints->setStyleSheet("QLabel { color : red; }");
 }

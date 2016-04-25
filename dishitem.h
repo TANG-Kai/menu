@@ -19,6 +19,8 @@ public:
     ~DishItem();
     Dish* dish;
     void setDish(Dish* dish);
+    void setConstraints(QString ctrs);
+
 signals:
     void buttonClicked(QString name);
 private slots:

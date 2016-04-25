@@ -16,6 +16,7 @@ public:
     QString name;
     QString path;
     double price;
+    int spiciness;
     bool containsKey(QString);
     QList<QString>* getkeys_container();
 private:
